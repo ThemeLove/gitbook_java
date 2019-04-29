@@ -83,6 +83,120 @@
 		
 	JRE:是java的运行时环境，包含JVM 和 核心内库   
 	
-	JVM:是java虚拟机，不同平台有不同品台的Java虚拟机，从而实现跨平台
+	JVM:是java虚拟机，不同平台有不同平台的Java虚拟机，从而实现跨平台
 
 
+####10.逻辑运算符
+|--|--|--|  
+|符号|作用|说明|
+|&| 逻辑与|a&b，a和b都是true，结果为true，否则为false|
+|I| 逻辑或|aIb，a和b都是false，结果为false，否则为true|
+|^| 逻辑异或|a^b，a和b结果不同为true，相同为false|
+|!|逻辑非|！a，结果和a的结果正好相反|  
+
+####11.变量和常量的运算（类型转换） 
+例子1：  
+
+```java
+	
+	public static void main(String[] args){
+		byte b1=1;
+		byte b2=2;
+		byte b3=1+2;
+		byte b4=b1+b2;  //编译失败
+		System.out.println(b3);
+		System.out.println(b4);
+	}
+
+	分析： b3 = 1 + 2 ， 1 和 2 是常量，为固定不变的数据，在编译的时候（编译器javac），  
+	已经确定了1+2的结果并没有超过byte类型的取值范围，可以赋值给变量b3 ，因此b3=1 + 2 是正确的。   
+	反之， b4 = b2 + b3 ， b2 和 b3 是变量，变量的值是可能变化的，在编译的时候，编译器javac不确定b2+b3    
+	的结果是什么，因此会将结果以int类型进行处理，所以int类型不能赋值给byte类型，因此编译失败。
+
+```  
+
+例子2：  
+
+```java 
+
+	public static void main(String[] args){
+		short s = 1;
+		s+=1;
+		System.out.println(s);
+	}
+
+	分析： s += 1 逻辑上看作是s = s + 1 计算结果被提升为int类型，再向short类型赋值时发生错误，  
+	因为不能将取值范围大的类型赋值到取值范围小的类型。    
+	但是， s=s+1进行两次运算， += 是一个运算符，只运算一次，并带有强制转换的特点，   
+	也就是说s += 1 就是s = (short)(s + 1) ，因此程序没有问题编译通过，运行结果是2
+```
+
+####12.构造方法 
+	1.如果不提供构造方法，系统会给出无参数构造方法  
+	2.如果提供了构造方法，系统将不再提供无参数构造方法
+	3.构造方法是可以重载的，既可以定义参数，也可以不定义参数     
+
+####13.键盘录入 Scanner 
+	构造方法：
+	public Scanner(InputStream inputStream) 构造一个新的 Scanner，它生成的值是从指定的输入流扫描的 
+
+	成员方法： 
+	String nextLine = scanner.nextLine();
+	int nextInt = scanner.nextInt();    
+
+####14.随机数  Random  
+	构造方法： 
+	public Random()  创建一个新的随机数生成器，seed默认为系统时间System.currentTimeMillis()
+	public Random(long seed) 指定seed创建一个随机数生成器  
+
+	成员方法： 
+	int nextInt2 = random.nextInt(); 随机返回一个int范围内的值
+	int nextInt3 = random.nextInt(10);返回一个伪随机数，范围在 0 （包括）和指定值 n （不包括）之间的 int 值。
+
+	boolean nextBoolean = random.nextBoolean();
+
+####15.String 
+	字符串是常量，它们的值在创建后不能被更改,所以每当进行字符串拼接时，总是会在内存中创建一个新的对象
+
+	String类的构造方法：  
+	public String():初始化新创建的String对象，以使其表示空字符序列  
+	public String(char[] value):通过当前参数中的字符数组来构造新的String  
+	public String(byte[] bytes):通过使用平台的默认字符集解码当前参数中的字节数组来构造新的String  
+	直接赋值的方法创建字符串对象  
+
+	字符串的底层就是字节数组byte[]
+
+	常用方法： 
+	比较：
+	public boolean equals(Object anObject): 将此字符串与指定对象进行比较  
+	public boolean equalsIgnoreCase(String anotherString):将此字符串与指定对象进行比较，忽略大小写。  
+	
+	获取：
+	public int length():返回此字符串的长度  
+	public String concat(String str):将指定的字符串连接到该字符串的末尾   
+	public char charAt(int index):返回指定索引出的char值  
+	public int indexOf(String str):返回指定子字符传第一次出现在该字符串内的索引  
+	public String substring(int beginIndex):返回一个子字符串，从beginIndex开始截取字符串到字符串结尾
+	public String substring(int beginIndex, int endIndex):返回一个字符串，从beginIndex到endIndex截取字符串。含beginIndex,不含endIndex   
+	
+	转换：    
+	public char[] toCharArray():将此字符串转换为新的字符数组 
+	public byte[] getBytes():使用平台的默认字符集将该String编码转换为新的字节数组   
+	public String replace(CharSequence target,CharSequence replacement):将与target匹配的字符串使用replacement字符串替换  
+
+	分割：   
+	public String[] split(String regex):将此字符串按照给定的regex(规则)拆分为字符串数组  
+
+####16.StringBuilder     
+	StringBuilder又称为可变字符序列，它是一个类似于 String 的字符串缓冲区，通过某些方法调用可以改变该序列的长度和内容  
+	它的内部拥有一个数组用来存放字符串内容，进行字符串拼接时，直接在数组中加入新内容。   
+	StringBuilder会自动维护数组的扩容。原理如下图所示：(默认16字符空间，超过自动扩充)  
+
+	构造方法： 
+	public StringBuilder():构造一个空的StringBuilder容器 
+	public StringBuilder(String str):构造一个StringBuilder容器，并将字符串添加进去   
+
+	常用方法： 
+	public StringBuilder append(...):添加任意类型数据的字符串形式   
+	public StringBuilder reverse():返回反转的字符序列  
+	public String toString():将当前StringBuilder对象转换为String对象
