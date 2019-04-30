@@ -199,4 +199,34 @@
 	常用方法： 
 	public StringBuilder append(...):添加任意类型数据的字符串形式   
 	public StringBuilder reverse():返回反转的字符序列  
-	public String toString():将当前StringBuilder对象转换为String对象
+	public String toString():将当前StringBuilder对象转换为String对象   
+
+####17.StringBuilder 和 String 相互转换  
+	1.StringBuilder 转换为 String 
+	public String toString() : 通过toString()就可以实现把StringBuilder 转换为String   
+	
+	2.String转换为 StringBuilder  
+	public StringBuilder(String s):通过构造方法就可以实现把 String 转换为 StringBuilder    
+  
+####18.String 和 StringBuilder的区别  
+	String 类：内容是不可变的  
+	StringBuilder类：内容是可变的    
+
+####19.ArrayList  
+	ArrayList 是大小可变的数组的实现，只能存储引用类型的数据，不能存储基本类型。    
+	
+	构造方法： 
+	public ArrayList();  构造一个内容为空的集合       
+	
+	常用方法和遍历   
+	public boolean add(E e):将指定的元素添加到此集合的尾部    
+	public void add(int index, E element):在此集合中的指定位置插入指定的元素   
+	public boolean remove(Object o):删除指定的元素，返回删除是否成功  
+	public E remove(int index):移除此集合中指定位置上的元素。返回被删除的元素 
+	public E set(int index,E element):修改指定索引处的元素，返回被修改的元素  
+	public E get(int index):返回此集合中指定位置上的元素，返回获取的元素    
+	public int size():返回此集合中的元素数，遍历集合时，可以控制索引范围，防止越界   
+
+	
+
+
