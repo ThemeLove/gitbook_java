@@ -242,6 +242,39 @@
 |double|16|
 |boolean|true/false(理论上占用1bit，即1/8字节，实际处理按1byte处理)  
 
-####21.字符流只能对文本文件使用，不能对音视频等非字符格式的文件操作，否则可能会丢失内容。    
-	
+####21.字符流只能对文本文件使用，不能对音视频等非字符格式的文件操作，否则可能会丢失内容。      
 
+####22. java中switch case的用法注意事项： 
+	1.若当前匹配成功的case不存在break，则从当前case开始，依次返回后续case的返回值，直到遇到break，跳出判断   
+	例1：
+	    int i = 2;
+        switch(i){
+        case 0:
+            System.out.println("0");
+        case 1:
+            System.out.println("1");
+        case 2:
+            System.out.println("2");
+        default:
+            System.out.println("default");
+        }
+
+		输出：2
+		     default   
+	例2：
+		int i = 2;
+        switch(i){
+        case 0:
+            System.out.println("0");
+        case 1:
+            System.out.println("1");
+        case 2:
+            System.out.println("2");
+        case 3:
+            System.out.println("3");break;
+        default:
+            System.out.println("default");
+        }
+
+		输出：2
+    		 3
