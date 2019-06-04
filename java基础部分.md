@@ -242,6 +242,51 @@
 |double|16|
 |boolean|true/false(理论上占用1bit，即1/8字节，实际处理按1byte处理)  
 
-####21.字符流只能对文本文件使用，不能对音视频等非字符格式的文件操作，否则可能会丢失内容。    
+####21.字符流只能对文本文件使用，不能对音视频等非字符格式的文件操作，否则可能会丢失内容  
 	
+####22.java中的变量什么时候需要初始化  
+
+	1. 对于类的成员变量，不管程序有没有显式的进行初始化，Java虚拟机都会先自动给它初始化为默认值。 
+	
+	 默认值如下：
+	             Boolean      false
+	             Char           '\u0000'(null)
+	             byte            (byte)0
+	             short           (short)0
+	             int               0
+	             long            0L
+	             float            0.0f
+	             double        0.0d   
+
+	2. 局部变量声明之后，Java虚拟机就不会自动给它初始化为默认值，因此局部变量的使用必须先经过显式的初始化。
+	   但是需要声明的是：对于只负责接收一个表达式的值的局部变量可以不初始化，参与运算和直接输出等其它情况的局部变量需要初始化。
+	
+		通过下面这个测试可以看到JVM对哪些数据初始化，哪写数据不初始化：
+		
+		public class TestStatic {
+		 static int x; //类的成员变量，JVM负责初始化
+		 static int method()
+		 {
+		    int y=0;  //此处必须自己初始化，它不属于类成员变量，是个method的局部变量，JVM不负责初始化
+		
+		    return y;
+		 }
+		 public static void main(String[] args) {
+		     TestStatic as=new TestStatic();
+		     int z=0;  //此处必须自己初始化，它不属于类成员变量，是个主函数里的局部变量，JVM不负责初始化
+		     int aa=3; //此处aa参与了运算，所以必须初始化
+		     aa=aa+2;
+		     int a=1,b=2,max; //max只是负责接收表达式的值，不需要初始化
+		     max=a>b?2:1; 
+		     System.out.println(max); //1
+		     System.out.println(aa); //5
+		     System.out.println("z="+z); //z=0
+		     System.out.println("x="+as.x); //x=0  
+		
+		    System.out.println("y="+as.method()); //y=0
+		 }
+		} 
+	总结为一句话便是：
+	类里定义的数据成员称为属性，属性可不赋初值，若不赋初值则JAVA会按上表为其添加默认值；   
+	方法里定义的数据成员称为变量，变量在参与运算之前必须赋初值。
 
