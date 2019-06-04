@@ -242,9 +242,8 @@
 |double|16|
 |boolean|true/false(理论上占用1bit，即1/8字节，实际处理按1byte处理)  
 
-####21.字符流只能对文本文件使用，不能对音视频等非字符格式的文件操作，否则可能会丢失内容  
 	
-####22.java中的变量什么时候需要初始化  
+####21.java中的变量什么时候需要初始化  
 
 	1. 对于类的成员变量，不管程序有没有显式的进行初始化，Java虚拟机都会先自动给它初始化为默认值。 
 	
@@ -289,4 +288,39 @@
 	总结为一句话便是：
 	类里定义的数据成员称为属性，属性可不赋初值，若不赋初值则JAVA会按上表为其添加默认值；   
 	方法里定义的数据成员称为变量，变量在参与运算之前必须赋初值。
+ 
 
+####22. java中switch case的用法注意事项： 
+	1.若当前匹配成功的case不存在break，则从当前case开始，依次返回后续case的返回值，直到遇到break，跳出判断   
+	例1：
+	    int i = 2;
+        switch(i){
+        case 0:
+            System.out.println("0");
+        case 1:
+            System.out.println("1");
+        case 2:
+            System.out.println("2");
+        default:
+            System.out.println("default");
+        }
+
+		输出：2
+		     default   
+	例2：
+		int i = 2;
+        switch(i){
+        case 0:
+            System.out.println("0");
+        case 1:
+            System.out.println("1");
+        case 2:
+            System.out.println("2");
+        case 3:
+            System.out.println("3");break;
+        default:
+            System.out.println("default");
+        }
+
+		输出：2
+    		 3
