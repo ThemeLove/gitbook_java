@@ -24,4 +24,18 @@
 
 	具体详情可参考以上视频连接   
 		
-	
+
+####二.java中正则使用的注意事项 
+	在使用matcher.group（）之前，一定要先调用matcher.find()方法。否则会抛出No match found异常
+ 
+```java
+
+	String pattern="\\d+";
+	Pattern r = Pattern.compile(pattern);
+	Matcher matcher = r.matcher(versionStr);
+	if (matcher.find()) {
+		String result = matcher.group(0);
+		System.out.println("result="+result);
+	}
+
+```
