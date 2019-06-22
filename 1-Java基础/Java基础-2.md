@@ -38,4 +38,14 @@
 		System.out.println("result="+result);
 	}
 
-```
+```      
+
+####三.命令行执行可执行jar包时指定编码：-Dfile.encoding=utf-8
+	1.在编译机器中运行都没问题，但是将代码导出成jar包在执行时，一些读写IO文件操作可能会报错
+	com.sun.org.apache.xerces.internal.impl.io.MalformedByteSequenceException: 3 字节的 UTF-8 序列的字节 3 无效。	
+ 
+	经排查是编码问题，window下命令行执行jar包时，默认是gbk编码，所以需要制定编码。
+	
+	java -Dfile.encoding=utf-8 -jar jenkins_vastool.jar "[{'channels': ['3'], 'gameId': '1556'}]"
+
+

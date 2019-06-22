@@ -5,4 +5,7 @@
 	* [2-Java基础-2](1-Java基础/Java基础-2.md)
 
 * [二十.SpringBoot](20-SpringBoot/README.md)
-	* [1-SpringBoot-1](20-SpringBoot/SprintBoot-1.md)
+	* [1-SpringBoot-1](20-SpringBoot/SpringBoot-1.md)
+
+* [二十一.龙珠项目学习](21-龙珠项目学习/README.md)     
+	* [platform](21-龙珠项目学习/platform.md)
