@@ -46,6 +46,17 @@
  
 	经排查是编码问题，window下命令行执行jar包时，默认是gbk编码，所以需要制定编码。
 	
-	java -Dfile.encoding=utf-8 -jar jenkins_vastool.jar "[{'channels': ['3'], 'gameId': '1556'}]"
+	java -Dfile.encoding=utf-8 -jar jenkins_vastool.jar "[{'channels': ['3'], 'gameId': '1556'}]"   
+
+####四.Java获取环境变量：
+		Java提供了System类的静态方法getenv()和getProperty()用于返回系统相关的变量与属性，  
+		getenv方法返回的变量大多于系统相关，getProperty方法返回的变量大多与java程序有关。 
+
+		System.getenv()： 方法是获取所有系统环境变量的值
+		System.getenv(String str)： 接收参数为任意字符串，当存在指定环境变量时即返回环境变量的值，否则返回null。
+
+		System.getProperty()： 是获取系统的相关属性，包括文件编码、操作系统名称、区域、用户名等， 
+							   此属性一般由jvm自动获取，不能设置。
+		System.getProperty(String str)： 接收参数为任意字符串，当存在指定属性时即返回属性的值，否则返回null。
 
 

@@ -1,5 +1,6 @@
 ###1.lombok
-	 Lombok能通过注解的方式,在编译时自动为属性生成构造器、getter/setter、equals、hashcode、toString方法,通常用于javabean  
+	 1.Lombok能通过注解的方式,在编译时自动为属性生成构造器、getter/setter、equals、hashcode、toString方法,通常用于javabean  
+	 2.需要在IDEA中单独安装插件，不然代码中报错
 ###2.spring-data-mongodb 
 	Spring Data for MongoDB是Spring Data的一个子模块。 目标是为MongoDB提供一个相近的一致的基于Spring的编程模型 
 	有写常用的注解
@@ -21,10 +22,11 @@
 	这两个注解被用来修饰一个非静态的void()方法.而且这个方法不能有抛出异常声明。  
 
 	1.@PostConstruct说明
-     被@PostConstruct修饰的方法会在服务器加载Servlet的时候运行，并且只会被服务器调用一次，类似于Serclet的inti()方法。   
+     被@PostConstruct修饰的方法会在服务器加载Servlet的时候运行，并且只会被服务器调用一次，类似于Serclet的init()方法。   
 	 被@PostConstruct修饰的方法会在构造函数之后，init()方法之前运行。
 
 	2.@PreDestroy说明
      被@PreDestroy修饰的方法会在服务器卸载Servlet的时候运行，并且只会被服务器调用一次，类似于Servlet的destroy()方法。    
-	 被@PreDestroy修饰的方法会在destroy()方法之后运行，在Servlet被彻底卸载之前   
+	 被@PreDestroy修饰的方法会在destroy()方法之后运行，在Servlet被彻底卸载之前     
+####6.
 
