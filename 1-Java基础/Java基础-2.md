@@ -57,6 +57,22 @@
 
 		System.getProperty()： 是获取系统的相关属性，包括文件编码、操作系统名称、区域、用户名等， 
 							   此属性一般由jvm自动获取，不能设置。
-		System.getProperty(String str)： 接收参数为任意字符串，当存在指定属性时即返回属性的值，否则返回null。
+		System.getProperty(String str)： 接收参数为任意字符串，当存在指定属性时即返回属性的值，否则返回null                          
+
+####五. Process java.lang.Runtime.exec(String command, String[] envp, File dir)   
+		该方法会生成一个新的进程去运行调用的程序,此方法返回一个java.lang.Process对象，  
+	    该对象可以得到之前开启的进程的运行结果，还可以操作进程的输入输出流。
+		
+		Process对象有以下几个方法：
+		　　1、destroy()　　　　　　杀死这个子进程
+		　　2、exitValue()　　　 　　得到进程运行结束后的返回状态
+		　　3、waitFor()　　　　 　　得到进程运行结束后的返回状态，如果进程未运行完毕则等待知道执行完毕
+		　　4、getInputStream()　　得到进程的标准输出信息流
+		　　5、getErrorStream()　　得到进程的错误输出信息流
+		　　6、getOutputStream()　得到进程的输入流
+		
+		现在来讲讲exitValue()，当线程没有执行完毕时调用此方法会跑出IllegalThreadStateException异常，  
+		最直接的解决方法就是用waitFor()方法代替。
+
 
 
