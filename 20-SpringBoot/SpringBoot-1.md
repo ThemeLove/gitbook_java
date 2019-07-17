@@ -28,5 +28,58 @@
 	2.@PreDestroy说明
      被@PreDestroy修饰的方法会在服务器卸载Servlet的时候运行，并且只会被服务器调用一次，类似于Servlet的destroy()方法。    
 	 被@PreDestroy修饰的方法会在destroy()方法之后运行，在Servlet被彻底卸载之前     
-####6.
+####6.项目中获取配置文件读取流的方法  
+	1.jdk中的方法
+	InputStream resourceAsStream = getClass().getClassLoader().getResourceAsStream("SqlMapperConfig.xml");   
+	2.myBatis中的  
+    InputStream inputStream = Resources.getResourceAsStream("SqlMapperConfig.xml");    
+
+####7.mybatis中的配置文件开头一定要声明mybatis dtd 约束，否则mybatis框架解析配置文件失败  
+	1.config 约束    
+例如：
+
+```xml
+
+	<?xml version="1.0" encoding="UTF-8" ?>
+	<!DOCTYPE configuration
+	        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+	<configuration>
+	    <environments default="development">
+	        <environment id="development">
+	            <transactionManager type="JDBC"/>
+	            <dataSource type="POOLED">
+	                <property name="driver" value="com.mysql.jdbc.Driver"/>
+	                <property name="url" value="jdbc:mysql://10.200.202.158:3306/mybatis?characterEncoding=utf-8"/>
+	                <property name="username" value="root"/>
+	                <property name="password" value="root"/>
+	            </dataSource>
+	        </environment>
+	    </environments>
+	
+	    <mappers>
+	        <mapper resource="UserMapper.xml"/>
+	    </mappers>
+	
+	</configuration>
+
+```
+	2.mapper约束   
+例如：
+
+```xml
+
+	<?xml version="1.0" encoding="utf-8" ?>
+	<!DOCTYPE mapper
+	        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="UserMapper">
+	    <select id ="findAllUsers" resultType="com.mybatis.domain.User">
+	        select * from user;
+	    </select>
+	</mapper>
+```
+
+####8.
+
 
