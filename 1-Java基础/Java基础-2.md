@@ -80,7 +80,10 @@
 	构造函数：执行时间比构造代码块时间晚，也是在对象初始化的时候运行。没有返回值，构造函数名称和类名一致。            
 
 ####七.java8中的新特性    StreamAPI   提供了各种快捷操作数据和流的操作
-博客链接：[https://blog.csdn.net/u010425776/article/details/52344425](https://blog.csdn.net/u010425776/article/details/52344425 "博客链接")
+博客链接：[https://blog.csdn.net/u010425776/article/details/52344425](https://blog.csdn.net/u010425776/article/details/52344425 "博客链接")   
+
+####八.Collections.shuffle(List<?> list) 
+	打乱集合中元素的顺序，场景：洗牌场景
 
 
 
