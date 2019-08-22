@@ -3,7 +3,7 @@
 	 2.需要在IDEA中单独安装插件，不然代码中报错
 ###2.spring-data-mongodb 
 	Spring Data for MongoDB是Spring Data的一个子模块。 目标是为MongoDB提供一个相近的一致的基于Spring的编程模型 
-	有写常用的注解
+	有些常用的注解
 	@Document：把一个java类声明为mongodb的文档，可以通过collection参数指定这个类对应的文档
 	@Indexed:声明该字段需要索引，建索引可以大大的提高查询效率。
 	@CompoundIndex:复合索引的声明，建复合索引可以有效地提高多字段的查询效率。
