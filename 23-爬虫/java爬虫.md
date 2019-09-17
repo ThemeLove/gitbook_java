@@ -65,6 +65,25 @@
 	2.两个免费代理ip的服务器网站： 
 	  米扑代理：https://proxy.mimvp.com/free.php
 	  西刺代理：http://www.xicidaili.com   
-	3.再webmagic中使用代理，在downloader中设置
-	  
+	3.再webmagic中使用代理，在downloader中设置 
+```java
+
+    downloader = new HttpClientDownloader();
+    SimpleProxyProvider proxyProvider = SimpleProxyProvider.from(new Proxy("140.143.152.93", 1080),
+            new Proxy("140.143.152.93", 1080),
+            new Proxy("140.143.152.93", 1080),
+            new Proxy("140.143.152.93", 1080)
+    );
+    downloader.setProxyProvider(proxyProvider);
+```
+	     
+####五.selenium+无头浏览器 
+	1.selenium:前段测试框架：能通过代码控制浏览器  
+	  有java、.net、python、node.js 等各个版本     
+	2.无头浏览器：没有图像的浏览器        
+      phantomjs:无头浏览器   
+	  普通浏览器的的无头浏览模式： 
+	  chrome 
+	  firefox 
+	  edge   
 	  
