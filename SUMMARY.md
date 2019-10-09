@@ -18,6 +18,8 @@
 * [二十一.SSM](21-SSM/README.md)  
 	* [1-SSM-day01](21-SSM/SSM-day01.md)
 
-* [龙珠项目学习](龙珠项目学习/README.md)     
-	* [platform](龙珠项目学习/platform.md)  
-	* [platform-存疑](龙珠项目学习/platform-存疑.md)
+* [龙珠项目platform](龙珠项目/README.md)     
+	* [platform](龙珠项目/platform.md)  
+	* [platform-存疑](龙珠项目/platform-存疑.md)  
+* [随见项目](随见项目/README.md) 
+	* [基本知识](随见项目/base-common.md)
