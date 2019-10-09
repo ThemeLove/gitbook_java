@@ -1,0 +1,1 @@
+####1.redis 苏宁passport等登录注册url、是否支持代理等都配置在苏宁scm系统里，通过jar包来获取
