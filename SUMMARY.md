@@ -8,7 +8,7 @@
 	
 * [十七.javaWeb](17-javaWeb/README.md) 
 	* [Request](17-javaWeb/Request.md)
-	* [Cookie_Session](17-javaweb/cookie_session.md) 
+	* [Cookie_Session](17-javaweb/Cookie_session.md) 
 	* [EL表达式和JSTL](17-javaweb/EL表达式和JSTL.md) 
 	* [JSP](17-javaweb/JSP.md) 
 
@@ -22,4 +22,7 @@
 	* [platform](龙珠项目/platform.md)  
 	* [platform-存疑](龙珠项目/platform-存疑.md)  
 * [随见项目](随见项目/README.md) 
-	* [基本知识](随见项目/base-common.md)
+	* [基本知识](随见项目/base-common.md) 
+	* [管理后台](随见项目/management-background.md)
+	* [业务开发](随见项目/buiness_develop.md)   
+	* [bootstrap](随见项目/bootstrap.md)
