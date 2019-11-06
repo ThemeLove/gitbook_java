@@ -18,12 +18,3 @@
 * [二十一.SSM](21-SSM/README.md)  
 	* [1-SSM-day01](21-SSM/SSM-day01.md)
 
-* [龙珠项目platform](龙珠项目/README.md)     
-	* [platform](龙珠项目/platform.md)  
-	* [platform-存疑](龙珠项目/platform-存疑.md) 
-	* [platform-苏宁旗舰店](龙珠项目/platform-苏宁旗舰店.md) 
-* [随见项目](随见项目/README.md) 
-	* [基本知识](随见项目/base-common.md) 
-	* [管理后台](随见项目/management-background.md)
-	* [业务开发](随见项目/buiness_develop.md)   
-	* [bootstrap](随见项目/bootstrap.md)
