@@ -16,7 +16,7 @@
 		（2）：跨域方面解决：
 			  调用方解决：调用方隐藏跨域，将需要跨域的请求配置代理进行转发（具体可参考以上博客链接）  
 			  被调用方解决：可以在http服务器（apache或者nginx等）或者web服务器（tomcat,weblogic等） 进行设置，主要原理就是在responseHeader中添加允许跨域的头信息  
-			  告诉浏览器该请求是运行跨域的          
+			  告诉浏览器该请求是允许跨域的          
 		（3）：XmlHttpResquest的解决办法： 
 			  只要改变请求的类型不为XmlHttpResquest即可，浏览器就不会报跨域错误；  
 			  其中典型的解决方案就是jsonp方式，其原理就是动态创建script标签，然后在script标签中进行跨域请求。  
@@ -69,7 +69,7 @@
 		　　5、getErrorStream()　　得到进程的错误输出信息流
 		　　6、getOutputStream()　得到进程的输入流
 		
-		现在来讲讲exitValue()，当线程没有执行完毕时调用此方法会跑出IllegalThreadStateException异常，  
+		现在来讲讲exitValue()，当线程没有执行完毕时调用此方法会抛出IllegalThreadStateException异常，  
 		最直接的解决方法就是用waitFor()方法代替。     
 
 ####六.java代码加载顺序
