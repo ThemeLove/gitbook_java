@@ -1,13 +1,13 @@
 ####一.HttpServletRequest 中 getParameter 和 getAttribute 方法  
 	1.getParameter()方法  
-	  该方法是用于客户端传递过来的参数，它的返回值类型永远是字符串类型，这个赋值动作是有客户端完成的
+	  该方法是用于客户端传递过来的参数，它的返回值类型永远是字符串类型，这个赋值动作是服务端容器完成的
 	  特别的，当我们新建一个Servlet 继承自 HttpServlet 后，HttpServletRequest中并没有setParameter方法   
 	2.getAttribute()方法
       该方法是在请求传到服务器端后，在去使用其进行存取一些附加数据。它的返回类型永远是Object.  
 	  注：
-	  所以如果需要在服务器端进行跳转，并需要想下个页面发送新的参数时，request则没法实现。  
-	  但是attribute可以，可以通过setAttribute()，将值放入到request对象，然后在其他页面使用getAttribute获取对应的值， 
-	  这样就达到一次请求可以在多个页面共享一些对象信息，并且setAttribute可以设置引用类型对象  
+	  所以如果需要在服务器端进行跳转，并需要想下个页面发送新的参数时，由于没有setParameter方法，   
+	  只可以通过setAttribute()，将值放入到request对象，然后在其他页面使用getAttribute获取对应的值， 
+	  这样就达到一次请求可以在多个页面共享一些对象信息，并且setAttribute可以设置引用类型对象   
 
 	总结：获取客户端参数时用req.getParameter;服务端设置值时用req.setAttribute方法。   
 
