@@ -1,12 +1,12 @@
 #summary
-
 * [一.Java基础](1-Java基础/README.md)
 	* [1-Java基础-1](1-Java基础/Java基础-1.md)
-	* [2-Java基础-2](1-Java基础/Java基础-2.md)   
+	* [2-Java基础-2](1-Java基础/Java基础-2.md)
 * [二.多线程](2-多线程/README.md)	  
 	* [1.JDK并发api](2-多线程/1.JDK并发api.md)  
 * [三.JVM优化](3.JVM优化/README.md) 
-	* [JVM优化](3.JVM优化/JVM优化.md)
+	* [1.JVM优化](3.JVM优化/JVM优化.md)  
+	* [2.JVM垃圾回收](3.JVM优化/2.JVM垃圾回收.md)
 * [十六.redis](16-redis/README.md)
 	* [redis](16-redis/redis.md)	
 * [十七.javaWeb](17-javaWeb/README.md) 
