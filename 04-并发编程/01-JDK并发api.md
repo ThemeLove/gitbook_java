@@ -15,60 +15,71 @@
                           TimeUnit unit,//时间单位
                           BlockingQueue<Runnable> workQueue,//任务工作队列
                           ThreadFactory threadFactory,//创建线程工程
-                          RejectedExecutionHandler handler)//达到最大线程数并且任务工作队列也满时，再提交任务时的处理策略）   
+                          RejectedExecutionHandler handler)//达到最大线程数并且任务工作队列也满时，再提交任务时的处理策略）    
+
+	参数说明：  
+	keepAliveTime：
+    	当线程空闲时间达到keepAliveTime，该线程会退出，直到线程数量等于corePoolSize。  
+		如果allowCoreThreadTimeout设置为true，则所有线程均会退出直到线程数量为0  
+
+    allowCoreThreadTimeout：
+		是否允许核心线程空闲退出，默认值为false
+  
 
 	
 ####二.jdk自带的集中线程池 
 Executors通过静态方法提供4种类型的线程池,他们都是调用ThreadPoolExecutor构造方法创建的 
 
-Executors.newFixedThreadPool(5) 
-Executors.newCachedThreadPool()   
-Executors.newSingleThreadExecutor()  
-Executors.newScheduledThreadPool(5) 
+- Executors.newFixedThreadPool(5) 
+- Executors.newCachedThreadPool()   
+- Executors.newSingleThreadExecutor()  
+- Executors.newScheduledThreadPool(5) 
 	
-	FixedThreadPool:固定线程池
-	public static ExecutorService newFixedThreadPool(int nThreads) {
-        return new ThreadPoolExecutor(nThreads, nThreads,
-                                      0L, TimeUnit.MILLISECONDS,
-                                      new LinkedBlockingQueue<Runnable>());
-    }
+		FixedThreadPool:固定线程池
+		public static ExecutorService newFixedThreadPool(int nThreads) {
+	        return new ThreadPoolExecutor(nThreads, nThreads,
+	                                      0L, TimeUnit.MILLISECONDS,
+	                                      new LinkedBlockingQueue<Runnable>());
+	    }
+		
+		CachedThreadPool: 缓存线程池
+	    public static ExecutorService newCachedThreadPool() {
+	        return new ThreadPoolExecutor(0, Integer.MAX_VALUE,
+	                                      60L, TimeUnit.SECONDS,
+	                                      new SynchronousQueue<Runnable>());
+	    } 
 	
-	CachedThreadPool: 缓存线程池
-    public static ExecutorService newCachedThreadPool() {
-        return new ThreadPoolExecutor(0, Integer.MAX_VALUE,
-                                      60L, TimeUnit.SECONDS,
-                                      new SynchronousQueue<Runnable>());
-    } 
-
-	ScheduledThreadPoolExecutor : 可调度线程池，提供定时、定期方法
-	public ScheduledThreadPoolExecutor(int corePoolSize) {
-        super(corePoolSize, Integer.MAX_VALUE, 0, NANOSECONDS,
-              new DelayedWorkQueue());
-    }
-
-	SingleThreadExecutor:单线程线程池
-	public static ExecutorService newSingleThreadExecutor() {
-        return new FinalizableDelegatedExecutorService
-            (new ThreadPoolExecutor(1, 1,
-                                    0L, TimeUnit.MILLISECONDS,
-                                    new LinkedBlockingQueue<Runnable>()));
-    }
-
+		ScheduledThreadPoolExecutor : 可调度线程池，提供定时、定期方法
+		public ScheduledThreadPoolExecutor(int corePoolSize) {
+	        super(corePoolSize, Integer.MAX_VALUE, 0, NANOSECONDS,
+	              new DelayedWorkQueue());
+	    }
 	
-	注意：1.阿里巴巴java开发手册建议线程池不允许使用Executors去创建，而是通过ThreadPoolExecutors的方式，   
-	     这样的处理方式会更加明确线程池的运行规则，避免规则资源耗尽的风险。  
-		 说明Executors各个方法的弊端  
-	     newFixedThreadPool 和 newSingleThreadExecutor  
-		 主要问题是堆积的请求处理队列可能会耗尽非常大内存，甚至OOM  
+		SingleThreadExecutor:单线程线程池
+		public static ExecutorService newSingleThreadExecutor() {
+	        return new FinalizableDelegatedExecutorService
+	            (new ThreadPoolExecutor(1, 1,
+	                                    0L, TimeUnit.MILLISECONDS,
+	                                    new LinkedBlockingQueue<Runnable>()));
+	    }
 	
-		 newCachedThreadPool和newScheduleThreadPool   
-		 主要问题是线程最大数是Integer.MAX_VALUE,可能会创建数量非常多的线程，甚至OOM        
-
-  		 2.根据ThreadPoolExecutors手动创建线程池的方式，各个参数的选择：   
-		   核心线程数：可以根据cpu的核心数考虑：Runtime.getRuntime().availableProcessors()   
-		   如果应用场景是cpu密集型可以考虑：核心线程数=cpu核数   
-		   如果应用场景是io密集型可以考虑：核心线程数=cpu核数*2+1
+		
+		注意：  
+			1.阿里巴巴java开发手册建议线程池不允许使用Executors去创建，而是通过ThreadPoolExecutors   
+			  的方式手动创建，这样的处理方式会更加明确线程池的运行规则，避免规则资源耗尽的风险   
+	
+			2.根据ThreadPoolExecutors手动创建线程池的方式，各个参数的选择：
+					核心线程数：可以根据cpu的核心数考虑：Runtime.getRuntime().availableProcessors()   
+					如果应用场景是cpu密集型可以考虑：核心线程数=cpu核数   
+					如果应用场景是io密集型可以考虑：核心线程数=cpu核数*2+1 
+	  
+		说明Executors各个方法的弊端：  
 	 
+		     newFixedThreadPool 和 newSingleThreadExecutor：  
+			 			主要问题是堆积的请求处理队列可能会耗尽非常大内存，甚至OOM  
+		
+			 newCachedThreadPool和newScheduleThreadPool：   
+			 			主要问题是线程最大数是Integer.MAX_VALUE,可能会创建数量非常多的线程，甚至OOM        
 
 
 ####三.当一个线程池里的线程异常后，jdk会怎么处理   

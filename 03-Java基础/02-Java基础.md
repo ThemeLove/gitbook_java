@@ -14,12 +14,19 @@
 	2.解决思路：根据跨域问题产生的原因解决思路可以从三方面入手 
 		（1）：浏览器禁止检查：可以命令行启动浏览器：chrome --disable-web-security  
 		（2）：跨域方面解决：
-			  调用方解决：调用方隐藏跨域，将需要跨域的请求配置代理进行转发（具体可参考以上博客链接）  
-			  被调用方解决：可以在http服务器（apache或者nginx等）或者web服务器（tomcat,weblogic等） 进行设置，主要原理就是在responseHeader中添加允许跨域的头信息  
-			  告诉浏览器该请求是允许跨域的          
+			  调用方解决：  
+						调用方隐藏跨域，将需要跨域的请求配置代理进行转发（具体可参考以上博客链接）;  
+						比如可以请求自己服务器，由服务器请求跨域资源，之后再返回给前端，因为服务端不存在跨域问题  
+			  被调用方解决：  
+						可以在http服务器（apache或者nginx等）或者web服务器（tomcat,weblogic等） 进行设置，
+						比如Spring中可以在Controller方法上添加@CrossOrigin注解；或者配置过滤器拦截器统一处理；  
+						或者SpringBoot中添加同源Cors(配置类中实例化org.springframework.web.filter.CorsFilter) 
+						主要原理就是在responseHeader中添加允许跨域的头信息（请求头：Access-Control-Allow-Origin）， 
+						告诉浏览器该请求是允许跨域的，这也间接说明了另一个问题：跨域请求浏览器是可以正常请求，  
+						并且服务端正常响应的，但是浏览器接收到响应由安全机制判定该请求是跨域请求时，报出跨域请求问题          
 		（3）：XmlHttpResquest的解决办法： 
 			  只要改变请求的类型不为XmlHttpResquest即可，浏览器就不会报跨域错误；  
-			  其中典型的解决方案就是jsonp方式，其原理就是动态创建script标签，然后在script标签中进行跨域请求。  
+			  其中典型的解决方案就是jsonp方式，其原理就是动态创建script标签，然后在script标签中进行跨域请求，script标签中是允许跨域请求的  
 			  然后将动态创建的script标签添加到html的header中，请求完毕再移除。   
 
 	具体详情可参考以上视频连接   
@@ -44,38 +51,56 @@
  
 	经排查是编码问题，window下命令行执行jar包时，默认是gbk编码，所以需要制定编码。
 	
-	java -Dfile.encoding=utf-8 -jar jenkins_vastool.jar "[{'channels': ['3'], 'gameId': '1556'}]"   
+	java -Dfile.encoding=utf-8 -jar jenkins_vastool.jar "[{'channels': ['3'], 'gameId': '1556'}]"     
+
+	命令： java -D属性名=属性值   
+	解释： 该命令可以设置java程序启动时的系统属性值；  
+		  何为系统属性值呢？也就是在System类中通过getProperties()得到的一串系统属性
 
 ####四.Java获取环境变量：
-		Java提供了System类的静态方法getenv()和getProperty()用于返回系统相关的变量与属性，  
-		getenv方法返回的变量大多于系统相关，getProperty方法返回的变量大多与java程序有关。 
+		Java提供了System类的静态方法getenv()getProperties()用于返回系统相关的变量与属性，  
+		getenv方法返回的变量大多于系统相关，getProperties方法返回的变量大多与java程序有关。 
 
-		System.getenv()： 方法是获取所有系统环境变量的值
-		System.getenv(String str)： 接收参数为任意字符串，当存在指定环境变量时即返回环境变量的值，否则返回null。
+		System.getenv()： 
+				方法是获取所有系统环境变量的值，比如JAVA_HOME路径
+		System.getenv(String str)： 
+				接收参数为任意字符串，当存在指定环境变量时即返回环境变量的值，否则返回null。
 
-		System.getProperty()： 是获取系统的相关属性，包括文件编码、操作系统名称、区域、用户名等， 
-							   此属性一般由jvm自动获取，不能设置。
-		System.getProperty(String str)： 接收参数为任意字符串，当存在指定属性时即返回属性的值，否则返回null                          
+		System.getProperties()： 
+				是获取jvm运行时相关属性，包括文件编码、操作系统名称、区域、用户名等，
+				此属性一般由jvm自动获取，不能设置。
+		System.getProperty(String str)：
+				接收参数为任意字符串，当存在指定属性时即返回属性的值，否则返回null  
+		
+		注意：System.getProperties()、System.getProperty() 也可以获取用户通过java -D属性名=属性值 设置的参数                          
 
 ####五. Process java.lang.Runtime.exec(String command, String[] envp, File dir)   
 		该方法会生成一个新的进程去运行调用的程序,此方法返回一个java.lang.Process对象，  
 	    该对象可以得到之前开启的进程的运行结果，还可以操作进程的输入输出流。
 		
 		Process对象有以下几个方法：
-		　　1、destroy()　　　　　　  杀死这个子进程
-		　　2、exitValue()　　　 　 得到进程运行结束后的返回状态
-		　　3、waitFor()　　　　 　　 得到进程运行结束后的返回状态，如果进程未运行完毕则等待知道执行完毕
-		　　4、getInputStream()　　得到进程的标准输出信息流
-		　　5、getErrorStream()　　得到进程的错误输出信息流
-		　　6、getOutputStream()　得到进程的输入流
+			1、destroy()			杀死这个子进程
+			2、exitValue()		得到进程运行结束后的返回状态
+			3、waitFor()			得到进程运行结束后的返回状态，如果进程未运行完毕则等待知道执行完毕
+			4、getInputStream()	得到进程的标准输出信息流
+			5、getErrorStream()	得到进程的错误输出信息流
+			6、getOutputStream()	得到进程的输入流
 		
 		现在来讲讲exitValue()，当线程没有执行完毕时调用此方法会抛出IllegalThreadStateException异常，  
 		最直接的解决方法就是用waitFor()方法代替。     
 
 ####六.java代码加载顺序
-	静态代码块：最早执行，类被载入内存时执行，只执行一次。没有名字、参数和返回值，有关键字static。   
-	构造代码块：执行时间比静态代码块晚，比构造函数早，和构造函数一样，只在对象初始化的时候运行。没有名字、参数和返回值。     
-	构造函数：执行时间比构造代码块时间晚，也是在对象初始化的时候运行。没有返回值，构造函数名称和类名一致。            
+	静态代码块：  
+			1.最早执行，类被载入内存时执行，只执行一次  
+			2.没有名字、参数和返回值，有关键字static   
+			3.多个静态代码块顺序执行 
+	构造代码块：  
+			1.执行时间比静态代码块晚，比构造函数早，和构造函数一样，只在对象初始化的时候运行  
+			2.没有名字、参数和返回值 
+			3.多个构造代码块顺序执行     
+	构造函数：
+			1.执行时间比构造代码块时间晚，也是在对象初始化的时候运行
+			2.没有返回值，构造函数名称和类名一致            
 
 ####七.java8中的新特性    StreamAPI   提供了各种快捷操作数据和流的操作
 博客链接：[https://blog.csdn.net/u010425776/article/details/52344425](https://blog.csdn.net/u010425776/article/details/52344425 "博客链接")   

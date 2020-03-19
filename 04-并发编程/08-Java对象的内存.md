@@ -22,7 +22,8 @@
 
 	- 1.1 通过类的全限定名获取该类的二进制字节流。
 	- 1.2 将二进制字节流所代表的静态结构转化为方法区的运行时数据结构。
-	- 1.3 在内存中创建一个代表该类的 java.lang.Class 对象，作为方法区这个类的各种数据的访问入口 
+	- 1.3 在内存中创建一个代表该类的 java.lang.Class 对象，注意类对象是放在堆中，  
+		  作为方法区这个类的各种数据的访问入口 
 	   
 怎样获取类的二进制字节流，JVM 没有限制。除了从编译好的 .class 文件中读取，还有以下几种方式：
 
@@ -77,16 +78,14 @@
 ####3.JMM (java memory model)  
 
 	线程从主内存读取变量值到更新主内存值的过程，对其他线程还有可见性的问题，volicate关键字
-
-- 1. read（读取）
-- 2. load  （载入）
-- 3. use （使用）
-- 4. assign  （赋值）
-- 5. store  （存储）
-- 6. write （写入）
-- 7. lock  （锁定）
+- 1. lock  （锁定）
+- 2. read（读取）
+- 3. load  （载入）
+- 4. use （使用）
+- 5. assign  （赋值）
+- 6. store  （存储）
+- 7. write （写入）
 - 8. unlock   （解锁）     
-
 
 ####4.可见性
 
@@ -134,7 +133,7 @@ JMM 关于synchronized的两条规定：
 - 对volatile变量执行写操作时，会在写操作后加入一条store屏障指令   
 - 对volatile变量执行读操作时，会在读操作前加入一条load屏障指令  
 
-通俗的讲：volatile变量在每次被线程访问时，都强迫从主内存中重读该变量的值，   
+通俗的讲：volatile变量在线程内每次被访问时，都强迫从主内存中重读该变量的值，   
 而当该变量发生变化时，又会强迫线程将最新的值刷新到主内存，这样任何时刻，不同的线程总能看到该变量的最新值    
 
 线程写volatile变量的过程：
@@ -147,7 +146,7 @@ JMM 关于synchronized的两条规定：
 - 1.从主内存中读取volatile变量的最新值到线程的工作内存中   
 - 2.从工作内存中读取volatile变量的副本     
 
-####9.volatile 不能保证volatile 变量符合操作的原子性   
+####9.volatile 不能保证变量复合操作的原子性   
 
 ```java
 
@@ -157,7 +156,6 @@ JMM 关于synchronized的两条规定：
 	synchronized(this){
 		number++;
 	}
-
 
 	//但是volatile 修饰的变量，类似于number++ 复合操作，却不能保证一个线程完整  
 	//的执行完成，执行过程中可能丢失cpu执行权，其他线程也可以修改number的值，当该
@@ -197,9 +195,20 @@ JMM 关于synchronized的两条规定：
 ####12.synchronized 和 reentrantLock 的区别   
 
 - jdk1.6 之前，synchronized 是重量级锁,它会调用操作系统内核完成线程的同步，  
-- jdk1.8 之后，synchronized 经过优化，提升了效率，和reentrantLock不相上下
-- reentrantLock 不涉及调用操作系统，底层是通过AQS来完成的，是轻量级锁，比较快   
-> 如果多个线程交替执行，其实reentrantLock 和队列无关，没用到队列，在jdk级别就解决了同步问题。 只有存在线程竞争时才用到了底层的AQS队列  
+- jdk1.8 之后，synchronized 经过优化，提升了效率，和reentrantLock不相上下  
+
+注意： 
+
+	1.reentrantLock 不涉及调用操作系统，底层是通过AQS来完成的，是轻量级锁，比较快;     
+	  如果多个线程交替执行，其实reentrantLock 和队列无关，没用到队列，  
+	  在jdk级别就解决了同步问题,只有存在线程竞争时才用到了底层的AQS队列  
+   
+	2.将一个线程进行挂起是通过park方法实现的，调用 park后，线程将一直阻塞直到超时 
+	  或者中断等条件出现.unpark可以终止一个挂起的线程，使其恢复正常。整个并发框架中 
+	  对线程的挂起操作被封装在 LockSupport类中，LockSupport类中有各种版本pack方法， 
+	  但最终都调用了Unsafe.park()方法  
+
+	3. ReentrantLock中有个private volatile int state 的变量，就是锁的同步状态标志位
 
 reentrantLock实现的主要技术点：自旋、park--unpark、 CAS(compare and set) 原子操作
 
