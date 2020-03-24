@@ -45,7 +45,10 @@
     create index 索引名称 on 表名(字段名称(长度)) 
 
     删除索引：
-    drop index 索引名称 on 表名;  
+    drop index 索引名称 on 表名;   
+
+	特别注意：
+		    1.创建表时主键（primary key） 和 unique 字段默认都添加了索引 
 
 ####7.索引demo  
 (1). 创建测试表testindex  

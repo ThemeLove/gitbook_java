@@ -60,7 +60,7 @@
 
     vim /etc/mysql/mysql.conf.d/mysqld.cnf    
 
-![](/assets/07-linux下设置mysql允许远程访问.png) 
+![](./images/linux下设置mysql允许远程访问.png) 
 
 然后重启msyql    
     
@@ -89,6 +89,12 @@
 
 4)端口指定是否正确   
 
+5)可能是该账号没有远程登录权限    
+
+> 对应mysql的user表中Host 字段   
+> localhost:只能在安装mysql服务端的本机上登录   
+> 指定ip:比如192.168.156.45，只能在ip为192.168.156.45机器上连接  
+> % ：任何机器都能连接
   
 
 ####4. 忘记 root 账户密码怎么办 !!

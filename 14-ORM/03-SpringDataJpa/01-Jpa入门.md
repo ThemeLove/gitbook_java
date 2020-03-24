@@ -53,11 +53,78 @@
 	    4）构造数据对象
 	    5）使用EntityManager对象的persist方法向数据库插入数据
 	    6）事务提交
-	    7）关闭连接
-	
-####4.jpql
-	jpql相当于sql语句，只是把表名换成实体类的类名，字段名换成实体类的属性名
+	    7）关闭连接  
 
+	
+		增加：entityManager.persist();  
+		删除：entityManager.remove();
+		修改：entityManager.merge(); 
+
+		根据id查询：
+			 entityManager.find();//即时加载
+			 entityManager.getReference();//延迟加载，用到的时候再加载
+	
+####4.jpql 
+
+	jpql相当于sql语句的变种，只是把表名换成实体类的类名，字段名换成实体类的属性名 
+
+	例如： 
+	查询全部：
+		sql: select * from customer  
+		jpql:from Customer
+	使用方法：
+		1）：创建一个EntityManager对象 
+		2）：使用entityManager创建一个Query对象 
+		3）：使用Query查询  
+		4）：关闭连接   
+
+```java
+
+	1.查询全部 
+	  sql:select * from customer; 
+	  jpql:from Customer  
+
+	2.使用jpql分页  
+	  使用Query对象的方法设置分页信息  
+	  起始行号：query.setFirstResult 
+	  每页的条数：query.setMaxResult   
+
+	  Query query = entityManager.createQuery("from Customer"); 
+	  query.setFirstResult(5);//设置起始行号
+	  query.setMaxResult(5);//设置每一页查询个数
+	  List<Customer> customerList = query.getResultList();  
+
+	  jpa底层会根据数据库类型，自动转换成相应的sql语句
+
+	3.带条件的查询 
+	  sql:select * from customer where id = ?  
+	  jpql:from Customer where id=? 
+
+      query.setParameter(jpql中第几个参数的，对应的值)  
+	  例如：query.setParameter(1,2L)
+
+	4.查询带排序  
+	  sql:select * from customer order by id desc  
+      jpql:from Customer order by id desc 
+
+	5.聚合查询:count sum max min avg
+	  sql:select count(*) from customer  
+	  jpql:select count(*) from Customer  
+
+	总结：Query对象的常用方法
+		  Query query = entityManager.createQuery("from Customer"); 
+	  	  query.setFirstResult(5);//设置起始行号
+	  	  query.setMaxResult(5);//设置每一页查询个数
+		  query.setParameter(jpql中第几个参数的，对应的值)
+		  query.getResultList 	 //获得结果集
+		  query.getSingleResult  //获得单个结果
+	  
+```  
+
+####5.
+
+
+	
    
 
   
