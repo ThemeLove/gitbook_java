@@ -546,8 +546,6 @@ B站鲁班学院-学习视频：[https://www.bilibili.com/video/BV1fJ411J7x4?p=1
 - 2.postHandler方法在Controller业务方法之后执行， 
 - 3.afterCompletion方法在最终视图渲染之后返回之前执行， 
 
-
-
 ```java
 
 	public interface HandlerInterceptor {
