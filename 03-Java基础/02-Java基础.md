@@ -8,7 +8,7 @@
 			  请求域名和本站域名 必须是跨域才会触发浏览器的跨域问题 
 		（3）：XmlHttpResquest  
 			  请求的类型必须是XmlHttpResquest才会引发浏览器的跨域问题  
- 			  
+	 			  
 			  比如说img、script标签中发起的请求就不是XmlHttpRequest类型的，所以可以跨域  
 	
 	2.解决思路：根据跨域问题产生的原因解决思路可以从三方面入手 
@@ -28,9 +28,9 @@
 			  只要改变请求的类型不为XmlHttpResquest即可，浏览器就不会报跨域错误；  
 			  其中典型的解决方案就是jsonp方式，其原理就是动态创建script标签，然后在script标签中进行跨域请求，script标签中是允许跨域请求的  
 			  然后将动态创建的script标签添加到html的header中，请求完毕再移除。   
-
+	
 	具体详情可参考以上视频连接   
-		
+
 
 ####二.java中正则使用的注意事项 
 ```java
@@ -43,16 +43,16 @@
 		String result = matcher.group(0);
 		System.out.println("result="+result);
 	}
-```      
+```
 
 ####三.命令行执行可执行jar包时指定编码：-Dfile.encoding=utf-8
 	1.在编译机器中运行都没问题，但是将代码导出成jar包在执行时，一些读写IO文件操作可能会报错
 	com.sun.org.apache.xerces.internal.impl.io.MalformedByteSequenceException: 3 字节的 UTF-8 序列的字节 3 无效。	
- 
+
 	经排查是编码问题，window下命令行执行jar包时，默认是gbk编码，所以需要制定编码。
 	
 	java -Dfile.encoding=utf-8 -jar jenkins_vastool.jar "[{'channels': ['3'], 'gameId': '1556'}]"     
-
+	
 	命令： java -D属性名=属性值   
 	解释： 该命令可以设置java程序启动时的系统属性值；  
 		  何为系统属性值呢？也就是在System类中通过getProperties()得到的一串系统属性
@@ -65,7 +65,7 @@
 				方法是获取所有系统环境变量的值，比如JAVA_HOME路径
 		System.getenv(String str)： 
 				接收参数为任意字符串，当存在指定环境变量时即返回环境变量的值，否则返回null。
-
+	
 		System.getProperties()： 
 				是获取jvm运行时相关属性，包括文件编码、操作系统名称、区域、用户名等，
 				此属性一般由jvm自动获取，不能设置。
@@ -147,7 +147,23 @@
 	int i = b1.compareTo(b2);
 ```
 
-####十一.ResourceBundle与Properties   
-		1.两者都可以便捷的读取配置文件，    
-		2.区别在于ResourceBundle通常是用于国际化的属性配置文件读取，Properties则是一般的属性配置文件
+#### 十一.ResourceBundle与Properties   
 
+```
+1.两者都可以便捷的读取配置文件，    
+2.区别在于ResourceBundle通常是用于国际化的属性配置文件读取，Properties则是一般的属性配置文件
+```
+
+#### 十二.Collections.unmodifiableMap()
+
+```bash
+#方法会返回一个“只读”的map，当你调用此map的put方法时会抛错
+public static final Map<String,String> TYPE ;
+static {
+    Map<String,String> tempMap  = new HashMap();
+    tempMap.put(MYSQL,"mysql");
+    tempMap.put(SQLSERVER,"sqlserver");
+    TYPE = Collections.unmodifiableMap(tempMap);
+}
+#如果向转化后的map中put数据会报throw new UnsupportedOperationException()错误
+```
