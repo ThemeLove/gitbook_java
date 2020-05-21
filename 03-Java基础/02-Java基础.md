@@ -1,4 +1,5 @@
-####一.ajax中的跨域问题  
+#### 一.ajax中的跨域问题  
+
 慕课网视频讲解链接：[https://www.imooc.com/learn/947](https://www.imooc.com/learn/947 "慕课网视频讲解链接")  
 
 	1.跨域问题产生的原因： 
@@ -31,10 +32,9 @@
 	
 	具体详情可参考以上视频连接   
 
+#### 二.java中正则使用的注意事项 
 
-####二.java中正则使用的注意事项 
 ```java
-
 	//在使用matcher.group（）之前，一定要先调用matcher.find()方法。否则会抛出No match found异常
 	String pattern="\\d+";
 	Pattern r = Pattern.compile(pattern);
@@ -45,9 +45,10 @@
 	}
 ```
 
-####三.命令行执行可执行jar包时指定编码：-Dfile.encoding=utf-8
-	1.在编译机器中运行都没问题，但是将代码导出成jar包在执行时，一些读写IO文件操作可能会报错
-	com.sun.org.apache.xerces.internal.impl.io.MalformedByteSequenceException: 3 字节的 UTF-8 序列的字节 3 无效。	
+#### 三.命令行执行可执行jar包时指定编码：-Dfile.encoding=utf-8
+
+​	1.在编译机器中运行都没问题，但是将代码导出成jar包在执行时，一些读写IO文件操作可能会报错
+​	com.sun.org.apache.xerces.internal.impl.io.MalformedByteSequenceException: 3 字节的 UTF-8 序列的字节 3 无效。	
 
 	经排查是编码问题，window下命令行执行jar包时，默认是gbk编码，所以需要制定编码。
 	
@@ -57,9 +58,10 @@
 	解释： 该命令可以设置java程序启动时的系统属性值；  
 		  何为系统属性值呢？也就是在System类中通过getProperties()得到的一串系统属性
 
-####四.Java获取环境变量：
-		Java提供了System类的静态方法getenv()getProperties()用于返回系统相关的变量与属性，  
-		getenv方法返回的变量大多于系统相关，getProperties方法返回的变量大多与java程序有关。 
+#### 四.Java获取环境变量：
+
+​		Java提供了System类的静态方法getenv()getProperties()用于返回系统相关的变量与属性，  
+​		getenv方法返回的变量大多于系统相关，getProperties方法返回的变量大多与java程序有关。 
 
 		System.getenv()： 
 				方法是获取所有系统环境变量的值，比如JAVA_HOME路径
@@ -74,10 +76,11 @@
 		
 		注意：System.getProperties()、System.getProperty() 也可以获取用户通过java -D属性名=属性值 设置的参数                          
 
-####五. Process java.lang.Runtime.exec(String command, String[] envp, File dir)   
-		该方法会生成一个新的进程去运行调用的程序,此方法返回一个java.lang.Process对象，  
-	    该对象可以得到之前开启的进程的运行结果，还可以操作进程的输入输出流。
-		
+#### 五. Process java.lang.Runtime.exec(String command, String[] envp, File dir)   
+
+​		该方法会生成一个新的进程去运行调用的程序,此方法返回一个java.lang.Process对象，  
+​	    该对象可以得到之前开启的进程的运行结果，还可以操作进程的输入输出流。		
+
 		Process对象有以下几个方法：
 			1、destroy()			杀死这个子进程
 			2、exitValue()		得到进程运行结束后的返回状态
@@ -89,62 +92,80 @@
 		现在来讲讲exitValue()，当线程没有执行完毕时调用此方法会抛出IllegalThreadStateException异常，  
 		最直接的解决方法就是用waitFor()方法代替。     
 
-####六.java代码加载顺序
-	静态代码块：  
-			1.最早执行，类被载入内存时执行，只执行一次  
-			2.没有名字、参数和返回值，有关键字static   
-			3.多个静态代码块顺序执行 
-	构造代码块：  
-			1.执行时间比静态代码块晚，比构造函数早，和构造函数一样，只在对象初始化的时候运行  
-			2.没有名字、参数和返回值 
-			3.多个构造代码块顺序执行     
-	构造函数：
-			1.执行时间比构造代码块时间晚，也是在对象初始化的时候运行
-			2.没有返回值，构造函数名称和类名一致            
+#### 六.java代码加载顺序
 
-####七.java8中的新特性    StreamAPI   提供了各种快捷操作数据和流的操作
-博客链接：[https://blog.csdn.net/u010425776/article/details/52344425](https://blog.csdn.net/u010425776/article/details/52344425 "博客链接")   
+​	静态代码块：  
 
-####八.Collections.shuffle(List<?> list) 
-	打乱集合中元素的顺序，场景：洗牌场景      
+```
+1.最早执行，类被载入内存时执行，只执行一次  
+2.没有名字、参数和返回值，有关键字static   
+3.多个静态代码块顺序执行 
+```
 
-####九.Java中处理大数字(超过16位有效位)的操作类   
-	java.math.BinInteger 类,  是针对大整数的处理类
-    java.math.BigDecimal 类,  用于高精度计算.是针对大小数的处理类  
 
-####十.BigDecimal 类可以处理java中的数字精度问题，如果在做支付相关需求时可以用该类
+​	构造代码块：  
+
+```
+1.执行时间比静态代码块晚，比构造函数早，和构造函数一样，只在对象初始化的时候运行  
+2.没有名字、参数和返回值 
+3.多个构造代码块顺序执行    
+```
+
+
+​	构造函数：
+
+```
+1.执行时间比构造代码块时间晚，也是在对象初始化的时候运行
+2.没有返回值，构造函数名称和类名一致      
+```
+
+#### 七.java8中的新特性    StreamAPI   提供了各种快捷操作数据和流的操作
+
+​	 	博客链接：[https://blog.csdn.net/u010425776/article/details/52344425](https://blog.csdn.net/u010425776/article/details/52344425 "博客链接")   
+
+#### 八.Collections.shuffle(List<?> list) 
+
+​		打乱集合中元素的顺序，场景：洗牌场景      
+
+#### 九.Java中处理大数字(超过16位有效位)的操作类   
+
+```
+java.math.BinInteger 类,  是针对大整数的处理类
+java.math.BigDecimal 类,  用于高精度计算.是针对大小数的处理类  
+```
+
+#### 十.BigDecimal 类可以处理java中的数字精度问题，如果在做支付相关需求时可以用该类
+
 ```java
+BigDecimal b1 = new BigDecimal("25.00");
+BigDecimal b2 = new BigDecimal("4.00");
 
-	BigDecimal b1 = new BigDecimal("25.00");
-	BigDecimal b2 = new BigDecimal("4.00");
-	
-	BigDecimal add = b1.add(b2);           //加
-	BigDecimal subtract = b1.subtract(b2); //减
-	BigDecimal multiply = b1.multiply(b2); //乘
-	BigDecimal divide = b1.divide(b2);     // 除
-	
-	/**
-	 * 求余数
-	 * 返回值为 (this % divisor) 的 BigDecimal
-	 */
-	BigDecimal remainder = b1.remainder(b2);
-	
-	/**
-	 * 求相反数
-	 * 返回值是 (-this) 的 BigDecimal
-	 */
-	BigDecimal negate = b1.negate();
-	
-	/**
-	 * 将此 BigDecimal 与指定的 BigDecimal 比较
-	 * 根据此方法,值相等但具有不同标度的两个 BigDecimal 对象（如，2.0 和 2.00）被认为是相等的;
-	 * 相对六个 boolean 比较运算符 (<, ==, >, >=, !=, <=) 中每一个运算符的各个方法,优先提供此方法;
-	 * 建议使用以下语句执行上述比较：(x.compareTo(y) <op> 0), 其中 <op> 是六个比较运算符之一;
-	 *
-	 * 指定者：接口 Comparable<BigDecimal> 中的 compareTo
-	 * 返回：当此 BigDecimal 在数字上小于、等于或大于 val 时，返回 -1、0 或 1
-	 */
-	int i = b1.compareTo(b2);
+BigDecimal add = b1.add(b2);           //加
+BigDecimal subtract = b1.subtract(b2); //减
+BigDecimal multiply = b1.multiply(b2); //乘
+BigDecimal divide = b1.divide(b2);     // 除
+
+/**
+ * 求余数
+ * 返回值为 (this % divisor) 的 BigDecimal
+ */
+BigDecimal remainder = b1.remainder(b2);
+
+/**
+ * 求相反数
+ * 返回值是 (-this) 的 BigDecimal
+ */
+BigDecimal negate = b1.negate();
+
+/**
+ * 将此 BigDecimal 与指定的 BigDecimal 比较
+ * 根据此方法,值相等但具有不同标度的两个 BigDecimal 对象（如，2.0 和 2.00）被认为是相等的;
+ * 相对六个 boolean 比较运算符 (<, ==, >, >=, !=, <=) 中每一个运算符的各个方法,优先提供此方法;
+ * 建议使用以下语句执行上述比较：(x.compareTo(y) <op> 0), 其中 <op> 是六个比较运算符之一;
+ * 指定者：接口 Comparable<BigDecimal> 中的 compareTo
+ * 返回：当此 BigDecimal 在数字上小于、等于或大于 val 时，返回 -1、0 或 1
+ */
+int i = b1.compareTo(b2);
 ```
 
 #### 十一.ResourceBundle与Properties   
