@@ -188,3 +188,65 @@ static {
 }
 #如果向转化后的map中put数据会报throw new UnsupportedOperationException()错误
 ```
+
+#### 十三.Collections中常用静态方法
+
+```shell
+#Collections中有些常用的静态方法
+Collections.emptySet();//创建一个空set
+Collections.emptyList();//创建一个空list
+Collections.emptyMap();//创建一个空map
+Collections.unmodifiableMap();//使一个map变为不能修改，即为只读
+Collections.empty....();
+```
+
+#### 十四.java文件操作之Path,Paths,Files
+
+```bash
+Java7中文件IO发生了很大的变化，专门引入了很多新的类：
+import java.nio.file.DirectoryStream;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.attribute.FileAttribute;
+import java.nio.file.attribute.PosixFilePermission;
+import java.nio.file.attribute.PosixFilePermissions; 
+在以前的操作中，主要通过File构造一个文件，然后将File作为入参，获取输入流等操作，Api的操作不是很流畅
+新api的引入改变了这一点
+```
+
+> 参考博客：![https://unnue.com/article/5207]()
+
+#### 十五. jdk1.7新特性 try-with-resource
+
+```bash
+# 用法
+try(){
+	//todo
+}catch (Exception e){
+	//todo
+}
+# 把代码写进try()括号里的作用:
+# 不用再写finally块
+# try括号内的资源会在try语句结束后自动释放，前提是这些可关闭的资源必须实现java.lang.AutoCloseable
+# 接口。InputStream 和OutputStream 父类中一定实现了AutoCloseable接口
+
+例如：
+try (InputStream fis = new FileInputStream(source);
+     OutputStream fos = new FileOutputStream(target)){
+        byte[] buf = new byte[8192];
+        int i;
+        while ((i = fis.read(buf)) != -1) {
+            fos.write(buf, 0, i);
+        }
+    }catch (Exception e) {
+        e.printStackTrace();
+    }
+```
+
+#### 十六.
+
+
+
