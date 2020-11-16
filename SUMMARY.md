@@ -6,6 +6,8 @@
 	* [02-Linux常用快捷键](02-Linux相关/02-Linux常用快捷键.md)
 	* [03-Linux常用命令](02-Linux相关/03-Linux常用命令.md)
 	* [04-Linux常用知识](02-Linux相关/04-Linux常用知识.md)
+	* [05-centos7常用命令](02-Linux相关/05-centos7常用命令.md)
+	* [06-linux常见场景操作](02-Linux相关/)
 * [三.Java基础](03-Java基础/README.md)  
 	* [01-Java基础-1](03-Java基础/01-Java基础.md)
 	* [02-Java基础-2](03-Java基础/02-Java基础.md)   
